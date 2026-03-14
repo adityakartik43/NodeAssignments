@@ -30,6 +30,11 @@ const page = () => {
   setStudents(data.data);
 };
 
+const delStudent = async(id) => {
+  console.log(id)
+  await fetch(`http://localhost:3001/api/students/delete/${id}`);
+} 
+
   return (
     <>
       <select
@@ -48,21 +53,25 @@ const page = () => {
         <table className="border border-white m-5">
           <thead>
             <tr>
+              <th className="border border-white p-2">S.No</th>
               <th className="border border-white p-2">First Name</th>
               <th className="border border-white p-2">Last Name</th>
               <th className="border border-white p-2">Email</th>
               <th className="border border-white p-2">Course</th>
+              <th className="border border-white p-2">Delete Entry</th>
             </tr>
           </thead>
 
           <tbody>
-            {students.map((elem) => {
+            {students.map((elem, idx) => {
               return (
                 <tr key={elem.student_id}>
+                  <td className="border border-white p-2">{idx+1}</td>
                   <td className="border border-white p-2">{elem.first_name}</td>
                   <td className="border border-white p-2">{elem.last_name}</td>
                   <td className="border border-white p-2">{elem.email}</td>
                   <td className="border border-white p-2">{elem.course}</td>
+                  <td className="border border-white p-2 bg-red-700 font-bold cursor-pointer hover:scale-105 hover:bg-red-800" onClick={()=>delStudent(elem.student_id)}>Delete</td>
                 </tr>
               );
             })}

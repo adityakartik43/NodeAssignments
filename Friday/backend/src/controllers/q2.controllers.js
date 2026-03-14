@@ -38,5 +38,25 @@ const filterStudents = async(req, res) => {
     });
   }
 }
+const deleteStudent = async(req, res) => {
 
-export { getData, filterStudents }
+    const { id } = req.params;
+
+    try {
+    const data = await pool.query(`delete from student where student_id = '${id}';`);
+
+    res.status(200).json({
+      success: true,
+      message: "Student deleted",
+      data: null
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      data: null,
+    });
+  }
+}
+
+export { getData, filterStudents, deleteStudent }
