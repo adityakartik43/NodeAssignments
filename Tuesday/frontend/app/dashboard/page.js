@@ -42,7 +42,8 @@ const Page = () => {
     <>
       {data.map((elem, index) => (
         <div key={index}>
-          {elem.name} - {elem.total_amount}
+          {elem.name} <br/>
+          Rs. {elem.total_amount}
         </div>
       ))}
     </>

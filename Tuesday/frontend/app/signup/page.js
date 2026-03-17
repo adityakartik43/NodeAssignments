@@ -1,21 +1,33 @@
 "use client"
 
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    name: '',
     email: '',
     password: '',
   });
+
+  const router = useRouter();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Form Submitted:', formData);
+    console.log(name)
+    const res = await axios.post("http://localhost:5000/users/register", formData);
+    if(res.status == 201){
+        alert("Signup completed")
+        router.push("/login");
+    }
+    else {
+        alert("Signup failed")
+    }
   };
 
   return (

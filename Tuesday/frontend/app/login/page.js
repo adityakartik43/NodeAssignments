@@ -2,8 +2,12 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
+
+    const router = useRouter();
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -29,9 +33,14 @@ const LoginPage = () => {
 
     const res = await axios.post("http://localhost:5000/users/login", loginData);
 
-    console.log(res.data)
+    console.log(res.status)
 
+    if(res.status === 200){
+        
     localStorage.setItem("token", res.data.data.token);
+    router.push("/dashboard")
+    }
+
 
   };
 
